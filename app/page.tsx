@@ -49,12 +49,27 @@ function HeroEmailCapture() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  function handleSubmit(e: React.FormEvent) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!email) return;
-    // TODO: Wire to Beehiiv or Supabase
-    console.log("Waitlist signup:", email);
-    setSubmitted(true);
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (!res.ok) throw new Error("Failed");
+      setSubmitted(true);
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return !submitted ? (
@@ -73,10 +88,12 @@ function HeroEmailCapture() {
       />
       <button
         type="submit"
-        className="w-full border border-gold bg-gold px-8 py-3.5 font-montserrat text-xs font-semibold uppercase tracking-widest3 text-noir transition-all duration-300 hover:bg-transparent hover:text-gold sm:w-auto"
+        disabled={loading}
+        className="w-full border border-gold bg-gold px-8 py-3.5 font-montserrat text-xs font-semibold uppercase tracking-widest3 text-noir transition-all duration-300 hover:bg-transparent hover:text-gold disabled:opacity-50 sm:w-auto"
       >
-        Join
+        {loading ? "..." : "Join"}
       </button>
+      {error && <p className="mt-2 w-full text-center font-montserrat text-xs text-red-400">{error}</p>}
     </form>
   ) : (
     <div className="mt-10 animate-fade-up" style={{ animationDelay: "0.55s" }}>
