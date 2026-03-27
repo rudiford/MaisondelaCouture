@@ -358,14 +358,46 @@ function Footer() {
 /* ── Page ──────────────────────────────────────────────────────────────── */
 
 export default function Home() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Maison de la Couture",
+    url: "https://www.maisondelacouture.com",
+    description:
+      "The digital closet for luxury fashion. Catalog your collection, track its value, and share your style.",
+    applicationCategory: "LifestyleApplication",
+    operatingSystem: "Web",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+      description: "Free founding member access — join the waitlist",
+    },
+    creator: {
+      "@type": "Organization",
+      name: "Maison de la Couture",
+      url: "https://www.maisondelacouture.com",
+      logo: "https://www.maisondelacouture.com/logo.png",
+      sameAs: [
+        "https://www.instagram.com/_maison.de.la.couture_/",
+      ],
+    },
+  };
+
   return (
-    <main>
-      <Hero />
-      <ValueProps />
-      <HowItWorks />
-      <FoundingMembers />
-      <Waitlist />
-      <Footer />
-    </main>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <main>
+        <Hero />
+        <ValueProps />
+        <HowItWorks />
+        <FoundingMembers />
+        <Waitlist />
+        <Footer />
+      </main>
+    </>
   );
 }

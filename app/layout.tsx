@@ -32,7 +32,20 @@ export const metadata: Metadata = {
     "fashion catalog",
     "haute couture",
     "luxury wardrobe",
+    "designer bag collection",
+    "Hermès Birkin value",
+    "Chanel bag price tracker",
+    "luxury handbag investment",
+    "closet inventory app",
+    "designer fashion tracker",
+    "luxury resale value",
+    "fashion collection management",
+    "Birkin bag worth",
+    "luxury closet organizer",
   ],
+  alternates: {
+    canonical: "https://www.maisondelacouture.com",
+  },
   openGraph: {
     title: "Maison de la Couture",
     description:
